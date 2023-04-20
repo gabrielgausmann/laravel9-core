@@ -103,27 +103,33 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
-            'perfis' => 'required'
         ]);
-
+        
         $input = $request->all();
+        unset($input['_token'], $input['_method']);
 
-        // Desconsiderar senhas vazias
-        // if(!empty($input['password'])){
-        //     $input['password'] = bcrypt($input['password']);
-        // } else {
-        //     unset($input['password']);
-        // }
+        if($id == 1) {
+            // Previne o administrador bocaberta de se autodeletar
+            (isset($input['perfis']) ? array_push($input['perfis'], "1") : $input['perfis'][0] = "1");
+        }
 
         $usuario = User::find($id);
         $usuario->update($input);
 
-        $usuario->syncRoles($request->input('perfis'));
-        
-        return redirect()->route('usuarios.index')->with([
-            'message' => 'Dados do usuário alterados com sucesso!', 
-            'style' => 'primary',
-        ]);
+        if($usuario->update($input) && $usuario->syncRoles($request->input('perfis'))) {
+            return redirect()->route('usuarios.index')->with([
+                'message' => 'Dados do usuário alterados com sucesso!', 
+                'style' => 'primary',
+            ]);
+
+        } else {
+
+            return redirect()->route('usuarios.index')->with([
+                'message' => 'Dados não foram alterados!', 
+                'style' => 'danger',
+            ]);
+
+        }
     }
 
     /**
