@@ -80,7 +80,6 @@ class PermsController extends Controller
         $permissao = Permission::find($id);
         $perfis = Role::all();
 
-        // TODO: Usuários ?
          return view('admin.perms.show', compact('permissao', 'perfis'));
     }
 

@@ -1,11 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row pb-2">
-        <h3 class="text-danger">Administração do sistema</h3>
-        <p class="lead d-none d-sm-block">
-            Utilize a barra lateral ou as opções abaixo para administrar a plataforma.
-        </p>
+    <div class="row pb-3">
+        <h4 class="text-primary">Administração do sistema</h4>
     </div>
     
     <div class="row row-cols-1 @can('dev') row-cols-md-3 @else row-cols-md-2  @endcan }} g-3 pb-3">

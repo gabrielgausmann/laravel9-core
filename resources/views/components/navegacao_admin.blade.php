@@ -1,13 +1,13 @@
-<nav class="navbar-dark bg-dark shadow-lg p-1 min-vh-100 pt-5 d-none d-sm-block">
+<nav class="navbar-dark bg-dark shadow-lg p-1 min-vh-100 pt-4 d-none d-sm-block">
     <ul class="nav nav-pills nav-flush flex-sm-column flex-row">
 
         @can('admin')
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a href="{{ route('admin') }}" class="nav-link {{ request()->routeIs('admin') ? 'active' : 'text-white' }}" title="Início" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Início">
                 <i class="bi bi-gear-fill fs-4"></i>
                 <span class="nav-label ms-2 d-none">Administração</span>
             </a>
-        </li>
+        </li> --}}
 
         <li class="nav-item">
             <a href="{{ route('usuarios.index') }}" class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : 'text-white' }}" title="Usuários" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Usuários">
@@ -34,3 +34,9 @@
         @endcan
     </ul>
 </nav>
+
+<script>
+    $('#nav-admin').hover(function() {
+        $('#nav-admin').toggleClass('collapsed');
+    });
+</script>

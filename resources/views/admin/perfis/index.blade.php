@@ -11,7 +11,7 @@
                             <h3 class="pt-1"><i class="bi bi-person-badge me-3"></i> Perfis de usuários</h3>
                         </div>
                         <div class="col-4 text-end">
-                            <a class="btn btn-primary" href="{{ route('perfis.create') }}" data-toggle="tooltip" title="Criar novo perfil">
+                            <a class="btn btn-primary" href="{{ route('perfis.create') }}">
                                 <span class="d-xs-block d-lg-none">
                                     <i class="bi bi-plus-lg"></i>
                                 </span>
@@ -47,26 +47,16 @@
                                 </td>
                                 <td class="text-center">{{ date('d/m/Y', strtotime($p->created_at)) }}</td>
                                 <td class="text-center">
-
-                                    @can('admin')
-                                    
-                                        <a class="btn btn-sm btn-secondary" href="{{ route('perfis.edit', $p->id) }}" data-toggle="tooltip" title="Editar {{ $p->name }}">
-                                            <i class="bi bi-pencil-fill"></i>
-                                        </a>
-
-                                        {{-- DELETE --}}
-                                        {{-- <a class="btn btn-sm btn-danger" href="{{ route('perfis.show', $p->id) }}" data-toggle="tooltip" title="Detalhes do perfil {{ $p->name }}">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a> --}}
-                                    
-                                    @else
-                                    
-                                        <a class="btn btn-sm btn-primary" href="{{ route('perfis.show', $p->id) }}" data-toggle="tooltip" title="Detalhes de {{ $p->name }}">
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-sm btn-primary" href="{{ route('perfis.show', $p->id) }}" data-bs-toggle="tooltip" title="Detalhar {{ $p->name }}">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
-
-                                    @endcan
-
+                                        @can('admin')
+                                            <a class="btn btn-sm btn-secondary" href="{{ route('perfis.edit', $p->id) }}" data-bs-toggle="tooltip" title="Editar {{ $p->name }}">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>
+                                        @endcan
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

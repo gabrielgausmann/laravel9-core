@@ -111,7 +111,17 @@ class RoleController extends Controller
 
         $perfil = Role::find($id);
         $perfil->update($request->all());
-        $perfil->syncPermissions($request->input('perms'));
+
+
+        $permissoes = $request->input('perms');
+
+
+        // Workaround para não desabilitar a função de root do perfil 1
+        if($id == 1) {
+            (isset($permissoes) ? array_push($permissoes, "1") : $permissoes[0] = "1");
+        }
+
+        $perfil->syncPermissions($permissoes);
         return redirect()->route('perfis.index')->with([
             'message' => 'Perfil e permissões alterados com sucesso!', 
             'style' => 'primary'
