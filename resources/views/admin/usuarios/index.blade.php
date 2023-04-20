@@ -8,7 +8,7 @@
                 <div class="card-header pb-1">
                     <div class="row">
                         <div class="col-8">
-                            <h3 class="pt-1"><i class="bi bi-people-fill me-3"></i> Usuários NOVO</h3>
+                            <h3 class="pt-1"><i class="bi bi-people-fill me-3"></i> Usuários</h3>
                         </div>
                         <div class="col-4 text-end">
                             <a class="btn btn-primary" href="{{ route('usuarios.create') }}">
