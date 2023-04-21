@@ -1,6 +1,6 @@
 {{-- Habilita o formulário apenas para $type CREATE e EDIT --}}
 @if(!is_null($type))
-    <form action="{{ ($type == 'edit') ? route('perfis.update', $perfil->id) : route('perfis.store') }}" method="post">
+    <form action="{{ ($type == 'edit') ? route('admin.perfis.update', $perfil->id) : route('admin.perfis.store') }}" method="post">
     @csrf
 
     @if($type == 'edit') @method('PUT') @endif
@@ -59,13 +59,13 @@
                     @can('admin')
 
                         <div class="d-xs-block d-lg-none">
-                            <a href="{{ route('perfis.edit', $perfil->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.perfis.edit', $perfil->id) }}" class="btn btn-secondary">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </div>
 
                         <div class="d-none d-lg-block">
-                            <a href="{{ route('perfis.edit', $perfil->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.perfis.edit', $perfil->id) }}" class="btn btn-secondary">
                                 <i class="bi bi-pencil-square"></i>
                                 Editar perfil
                             </a>
@@ -292,23 +292,25 @@
     <div class="card-footer">
 
         <div class="row">
-            <div class="col-8 mt-2">
-                <a class="text-muted text-decoration-none" href="{{ route('perfis.index') }}">
+            <div class="col-8 {{ (!is_null($type) ? "mt-2" : "mt-1") }}">
+                <a class="text-muted text-decoration-none" href="{{ route('admin.perfis.index') }}">
                     <i class="bi bi-arrow-return-left"></i>
                     <span class="ms-2">Voltar sem alterar nada</span>
                 </a>
             </div>
 
             <div class="col-4 text-end">
-                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="{{ ($type == 'edit') ? "Editar" : "Salvar" }} perfil">
-                    <span class="d-xs-block d-lg-none">
-                        <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
-                    </span>                    
-                    <span class="d-none d-lg-block">
-                        <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
-                        {{ ($type == 'edit') ? "Editar" : "Salvar" }} perfil
-                    </span>                   
-                </button>
+                @if(isset($type))
+                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="{{ ($type == 'edit') ? "Editar" : "Salvar" }} perfil">
+                        <span class="d-xs-block d-lg-none">
+                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
+                        </span>                    
+                        <span class="d-none d-lg-block">
+                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
+                            {{ ($type == 'edit') ? "Editar" : "Salvar" }} perfil
+                        </span>                   
+                    </button>
+                @endif
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 {{-- Habilita o formulário apenas para $type CREATE e EDIT --}}
 
 @if(isset($type))
-    <form action="{{ ($type == 'edit') ? route('usuarios.update', $usuario->id) : route('usuarios.store') }}" method="post">
+    <form action="{{ ($type == 'edit') ? route('admin.usuarios.update', $usuario->id) : route('admin.usuarios.store') }}" method="post">
     @csrf
 
     @if($type == 'edit') @method('PUT') @endif
@@ -58,13 +58,13 @@
                     @can('admin')
 
                         <div class="d-xs-block d-lg-none">
-                            <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.usuarios.edit', $usuario->id) }}" class="btn btn-secondary">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </div>
 
                         <div class="d-none d-lg-block">
-                            <a href="{{ route('usuarios.edit', $usuario->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.usuarios.edit', $usuario->id) }}" class="btn btn-secondary">
                                 <i class="bi bi-pencil-square"></i>
                                 Editar usuário
                             </a>
@@ -252,14 +252,15 @@
 
         <div class="row">
 
-            <div class="col-8 mt-2">
-                <a class="text-muted text-decoration-none" href="{{ route('usuarios.index') }}">
+            <div class="col-8 {{ (!is_null($type) ? "mt-2" : "mt-1") }}">
+                <a class="text-muted text-decoration-none" href="{{ route('admin.usuarios.index') }}">
                     <i class="bi bi-arrow-return-left"></i>
                     <span class="ms-2">Voltar @if(isset($type)) sem {{ ($type == 'create' ? 'criar usuário' : 'editar informações')  }} @else à página anterior @endif</span>
                 </a>
             </div>
 
             <div class="col-4 text-end">
+
                 @if(isset($type))
                     <button type="submit" class="btn btn-primary">
                         <span class="d-xs-block d-lg-none">
@@ -271,6 +272,7 @@
                         </span>                   
                     </button>
                 @endif
+
             </div>
         </div>
     </div>
@@ -281,6 +283,6 @@
     </form>
 
     @if($type == "edit")
-        <x-modal.confirmar-exclusao o="usuarios" :n="$usuario->name" :id="$usuario->id" />
+        <x-modal.confirmar-exclusao o="usuarios" :n="$usuario->name" :id="$usuario->id" modalId="confirmarExclusao"/>
     @endif
 @endif

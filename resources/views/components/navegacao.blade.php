@@ -36,9 +36,9 @@
                     @can('admin')
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-danger" href="{{ route('admin') }}">
-                                <span class="nav-label me-2 d-md-none">Sistema</span>
-                                <i class="bi bi-gear-fill fs-5"></i>
+                            <a class="nav-link text-dark" href="{{ route('admin.index') }}">
+                                <span class="nav-label me-2 d-md-none">Configurações</span>
+                                <i class="bi {{ (request()->routeIs('admin.*') ? "bi-gear-fill" : "bi-gear") }} fs-5"></i>
                             </a>
                         </li>
                     </ul>

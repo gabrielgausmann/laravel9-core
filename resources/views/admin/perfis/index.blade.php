@@ -11,7 +11,7 @@
                             <h3 class="pt-1"><i class="bi bi-person-badge me-3"></i> Perfis de usuários</h3>
                         </div>
                         <div class="col-4 text-end">
-                            <a class="btn btn-primary" href="{{ route('perfis.create') }}">
+                            <a class="btn btn-primary" href="{{ route('admin.perfis.create') }}">
                                 <span class="d-xs-block d-lg-none">
                                     <i class="bi bi-plus-lg"></i>
                                 </span>
@@ -48,11 +48,11 @@
                                 <td class="text-center">{{ date('d/m/Y', strtotime($p->created_at)) }}</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
-                                        <a class="btn btn-sm btn-primary" href="{{ route('perfis.show', $p->id) }}" data-bs-toggle="tooltip" title="Detalhar {{ $p->name }}">
+                                        <a class="btn btn-sm btn-primary" href="{{ route('admin.perfis.show', $p->id) }}" data-bs-toggle="tooltip" title="Detalhar {{ $p->name }}">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
                                         @can('admin')
-                                            <a class="btn btn-sm btn-secondary" href="{{ route('perfis.edit', $p->id) }}" data-bs-toggle="tooltip" title="Editar {{ $p->name }}">
+                                            <a class="btn btn-sm btn-secondary" href="{{ route('admin.perfis.edit', $p->id) }}" data-bs-toggle="tooltip" title="Editar {{ $p->name }}">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
                                         @endcan
@@ -67,7 +67,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-8 mt-1">
-                            <a class="text-muted pt-2 text-decoration-none" href="{{ route('admin') }}">
+                            <a class="text-muted pt-2 text-decoration-none" href="{{ route('admin.index') }}">
                                 <i class="bi bi-arrow-return-left"></i>
                                 <span class="ms-2">Voltar à página anterior</span>
                             </a>

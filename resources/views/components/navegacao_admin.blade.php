@@ -4,14 +4,14 @@
         @can('admin')
 
             <li class="nav-item">
-                <a href="{{ route('usuarios.index') }}" class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : 'text-white' }}">
+                <a href="{{ route('admin.usuarios.index') }}" class="nav-link {{ request()->routeIs('admin.usuarios.*') ? 'active' : 'text-white' }}">
                     <i class="bi bi-people-fill fs-4"></i>
                     <span class="nav-label ms-2">Usuários</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('perfis.index') }}" class="nav-link {{ request()->routeIs('perfis.*') ? 'active' : 'text-white' }}">
+                <a href="{{ route('admin.perfis.index') }}" class="nav-link {{ request()->routeIs('admin.perfis.*') ? 'active' : 'text-white' }}">
                     <i class="bi bi-person-badge fs-4"></i>
                     <span class="nav-label ms-2">Perfis</span>
                 </a>
@@ -20,7 +20,7 @@
 
             @can('dev')
             <li class="nav-item">
-                <a href="{{ route('permissoes.index') }}" class="nav-link text-white {{ request()->routeIs('permissoes.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.permissoes.index') }}" class="nav-link text-white {{ request()->routeIs('admin.permissoes.*') ? 'active' : '' }}">
                     <i class="bi bi-toggles fs-4"></i>
                     <span class="nav-label ms-2">Permissões</span>
                 </a>

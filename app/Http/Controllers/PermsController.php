@@ -63,7 +63,7 @@ class PermsController extends Controller
         }
 
         // Retorna para a tela inicial com mensagem de sucesso na criação do perfil
-        return redirect()->route('permissoes.index')->with([
+        return redirect()->route('admin.permissoes.index')->with([
             'message' => 'Permissão criada com sucesso!',
             'style' => 'primary',
         ]);
@@ -124,7 +124,7 @@ class PermsController extends Controller
             }
         }
 
-        return redirect()->route('permissoes.index')->with([
+        return redirect()->route('admin.permissoes.index')->with([
             'message' => 'Perfis e permissões alterados com sucesso!', 
             'style' => 'primary'
         ]);
@@ -139,7 +139,7 @@ class PermsController extends Controller
     public function destroy($id)
     {
         Permission::find($id)->delete();
-        return redirect()->route('permissoes.index')->with([
+        return redirect()->route('admin.permissoes.index')->with([
             'message' => 'Permissão excluída com sucesso!',
             'style' => 'danger',
         ]);

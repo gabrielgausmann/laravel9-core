@@ -12,7 +12,7 @@
 @endsection
 
 {{-- TODO: Criar uma página para edição dos perfis através do clique no usuário --}}
-{{-- <a class="btn btn-secondary" href="{{ route('perfis.edit_permissoes', $perfil->id) }}" data-toggle="tooltip" title="Alterar as permissões do perfil">
+{{-- <a class="btn btn-secondary" href="{{ route('admin.perfis.edit_permissoes', $perfil->id) }}" data-toggle="tooltip" title="Alterar as permissões do perfil">
     <i class="fas fa-toggle-on mx-1"></i>
 </a> --}}
 {{-- <p class="lead">
@@ -20,7 +20,7 @@
     Você pode clicar nos nomes de usuário para alterar seus perfis.
 </p> --}}
 
-{{-- <a class="badge badge-success p-2" href="{{ route('usuarios.edit_perfil', $u->id) }}">
+{{-- <a class="badge badge-success p-2" href="{{ route('admin.usuarios.edit_perfil', $u->id) }}">
         <i class="fa fa-user mr-2"></i>
         {{ $u->name }}
     </a> --}}
