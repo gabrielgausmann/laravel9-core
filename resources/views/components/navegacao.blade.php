@@ -36,9 +36,9 @@
                     @can('admin')
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-danger" href="{{ route('admin') }}">
-                                <span class="nav-label me-2 d-md-none">Sistema</span>
-                                <i class="bi bi-gear-fill fs-5"></i>
+                            <a class="nav-link text-dark" href="{{ route('admin.index') }}">
+                                <span class="nav-label me-2 d-md-none">Configurações</span>
+                                <i class="bi {{ (request()->routeIs('admin.*') ? "bi-gear-fill" : "bi-gear") }} fs-5"></i>
                             </a>
                         </li>
                     </ul>
@@ -50,15 +50,18 @@
                             <i class="bi-person-circle fs-5 ms-2"></i>
                         </a>
                         
-                        <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-end shadow p-0" aria-labelledby="navbarDropdown">
                                 
                             <!-- Alterar as próprias informações -->
-                            <a class="dropdown-item" href="{{ route('self.index') }}">Minhas informações</a>
+                            <a class="dropdown-item px-3 py-1" href="{{ route('self.index') }}">
+                                <i class="bi bi-person-check-fill fs-5 me-2"></i>
+                                Minhas informações
+                            </a>
                             
-                            <hr class="dropdown-divider">
+                            <hr class="dropdown-divider p-0 m-0">
 
                             <!-- Fazer logout -->
-                            <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item px-3 py-1 text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-power fs-5 me-2"></i>
                                 {{ __('Logout') }}
                             </a>

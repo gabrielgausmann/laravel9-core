@@ -57,7 +57,7 @@ class RoleController extends Controller
         $perfil->syncPermissions($request->input('perms'));
 
         // Retorna para a tela inicial com mensagem de sucesso na criação do perfil
-        return redirect()->route('perfis.index')->with([
+        return redirect()->route('admin.perfis.index')->with([
             'message' => 'Perfil criado com sucesso!',
             'style' => 'primary',
         ]);
@@ -111,8 +111,18 @@ class RoleController extends Controller
 
         $perfil = Role::find($id);
         $perfil->update($request->all());
-        $perfil->syncPermissions($request->input('perms'));
-        return redirect()->route('perfis.index')->with([
+
+
+        $permissoes = $request->input('perms');
+
+
+        // Workaround para não desabilitar a função de root do perfil 1
+        if($id == 1) {
+            (isset($permissoes) ? array_push($permissoes, "1") : $permissoes[0] = "1");
+        }
+
+        $perfil->syncPermissions($permissoes);
+        return redirect()->route('admin.perfis.index')->with([
             'message' => 'Perfil e permissões alterados com sucesso!', 
             'style' => 'primary'
         ]);
@@ -127,7 +137,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         Role::find($id)->delete();
-        return redirect()->route('perfis.index')->with([
+        return redirect()->route('admin.perfis.index')->with([
             'message' => 'Perfil excluído com sucesso!',
             'style' => 'danger',
         ]);

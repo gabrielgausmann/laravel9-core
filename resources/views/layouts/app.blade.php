@@ -5,51 +5,49 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- CSRF Token -->
+        {{-- Token CSRF --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>
-            @if(request()->is(['admin*'])) ADM | @endif
-            {{ config('app.name') }}
-        </title>
+        <title> @if(request()->is(['admin*'])) ADM | @endif {{ config('app.name') }} </title>
 
-        <!-- Fonts -->
+        {{-- Fontes --}}
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css" integrity="sha512-RvQxwf+3zJuNwl4e0sZjQeX7kUa3o82bDETpgVCH2RiwYSZVDdFJ7N/woNigN/ldyOOoKw8584jM4plQdt8bhA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/solid.min.css" integrity="sha512-uj2QCZdpo8PSbRGL/g5mXek6HM/APd7k/B5Hx/rkVFPNOxAQMXD+t+bG4Zv8OAdUpydZTU3UHmyjjiHv2Ww0PA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+       
+        @vite(['resources/sass/app.scss', 'resources/css/app.css'])
 
-        <!-- Scripts -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-        <script data-pace-options='{ "eventLag": false }' src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
-
-        {{-- JQUERY SLIM --}}
-        {{-- <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script> --}}
-
-        {{-- POPPER --}}
-        {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> --}}
+        {{-- JQuery --}}
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        
     </head>
 
     <body>
 
         {{-- Navegação geral, caso tenha realizado Login --}}
-        <div class="pb-5">
+        <div class="pb-5" style="z-index: 101">
             @auth <x-navegacao /> @endauth
         </div>
 
+        {{-- @hasSection()
+        @endif --}}
+
         {{-- Navegação administrativa, caso tenha permissão de administrador e esteja na rota correta --}}
         @can('admin')
-            @if(request()->is(['admin*']))
-                <div class="position-fixed vh-100 overflow-auto">
+            @if(request()->RouteIs(['admin.*']))
+                <div class="position-fixed vh-100 overflow-auto" style="z-index: 100">
                     <x-navegacao_admin />
                 </div>
             @endif
         @endcan
         
         {{-- Conteúdo principal --}}
-        <div class="container-fluid pt-5">
-            <div id="app" class="offset-md-1 col-md-10">
+        <div id="app" class="container-fluid pt-5" style="z-index: 99">
+            <div class="offset-md-1 col-md-11">
                 @yield('content')
             </div>
         </div>
@@ -73,10 +71,71 @@
 
     </body>
 
-{{-- 
-    TODO: Revisar scripts Popover; Tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="popover"]').popover();
---}}
+    {{-- Scripts --}}
+    
+    {{-- Data Tables --}}
+    {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css"/> --}}
 
+    {{-- Bootstrap 5.2.2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {{-- Pace --}}
+    <script data-pace-options='{ "eventLag": false }' src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+
+    {{-- JQuery Mask --}}
+    {{-- <script src="{{ asset('jquery.mask.plugin/jquery.mask.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('jquery.mask.plugin/jquery.mask.custom.js') }}"></script> --}}
+    
+    
+    {{-- 
+        FIXME: Mover para o custom.js (quando funcionar)
+    --}}
+    <script>
+        // TOASTER
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function(toastEl) {
+            return new bootstrap.Toast(toastEl)
+        })
+        toastList.forEach(toast => toast.show());
+
+        // TOOLTIPS
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        // // DATA TABLES
+        // $(document).ready( function () {
+        //     $('.datatable').DataTable({
+        //         order: [[ 2, 'desc' ], [ 0, 'asc' ]],
+        //         "pageLength": 25,
+        //         "language": {
+        //             "sEmptyTable": "Nenhum registro encontrado",
+        //             "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+        //             "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+        //             "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+        //             "sInfoPostFix": "",
+        //             "sInfoThousands": ".",
+        //             "sLengthMenu": "_MENU_ resultados por página",
+        //             "sLoadingRecords": "Carregando...",
+        //             "sProcessing": "Processando...",
+        //             "sZeroRecords": "Nenhum registro encontrado",
+        //             "sSearch": "Pesquisar na tabela ",
+        //             "oPaginate": {
+        //                 "sNext": '<i class="bi bi-chevron-right"></i>',
+        //                 "sPrevious": '<i class="bi bi-chevron-left"></i>',
+        //                 "sFirst": "Primeiro",
+        //                 "sLast": "Último"
+        //             },
+        //             "oAria": {
+        //                 "sSortAscending": ": Ordenar colunas de forma ascendente",
+        //                 "sSortDescending": ": Ordenar colunas de forma descendente"
+        //             },
+        //         }
+        //     });
+        // });
+    </script>
+
+    @yield('scripts');
 </html>

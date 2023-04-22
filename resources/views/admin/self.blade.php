@@ -19,18 +19,18 @@
                             </h3>
                         </div>
             
-                        <div class="col-4 text-end d-none">
-                            
+                        <div class="col-4 text-end">
+                            @if(Auth::user()->id > 1)
                             <a class="btn btn-danger" type="button" data-toggle="tooltip" title="Apagar {{ $usuario->name }}" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
                                 <span class="d-xs-block d-lg-none">
                                     <i class="bi bi-trash-fill"></i>
                                 </span>                    
                                 <span class="d-none d-lg-block">
                                     <i class="bi bi-trash-fill me-1"></i>
-                                    Excluir acesso
+                                    Excluir meu usuário
                                 </span>
                             </a>
-            
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                             <h5>Suas informações</h5>
                             <p class="text-secondary">
                                 <i class="fas fa-lock text-primary pr-2"></i>
-                                <span class="badge bg-primary me-1">LGPD</span>
+                                {{-- <span class="badge bg-primary me-1">LGPD</span> --}}
                                 Informações criptografadas
                                 {{-- 
                                     FIXME: Incluir criptografia de dados
@@ -85,9 +85,27 @@
                                         Senha
                                     </label>
             
+                                    <input type="password" name="password" class="form-control" id="password" aria-describedby="dicaPassword" disabled="disabled" />
+                                    
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="alterarSenha" name="alterarSenha">
+                                        <label class="form-check-label d-block" for="alterarSenha">
+                                          Alterar senha
+                                        </label>
+                                      </div>
+                                    <small id="dicaPassword" class="form-text text-muted d-none"><strong>Obrigatório</strong>. Utilize uma senha forte - use letras maiúsculas, minúsculas e caracteres especiais (#, @, $, ...)</small>
+                                </div>
+
+                                {{-- <div class="col-lg-6">
+                                    <label for="password" class="d-block fw-bold">
+                                        Senha
+                                    </label>
+            
                                     <input type="password" name="password" class="form-control" id="password" aria-describedby="dicaPassword" />
                                     <small id="dicaPassword" class="form-text text-muted"><strong>Obrigatório</strong>. Utilize uma senha forte - use letras maiúsculas, minúsculas e caracteres especiais (#, @, $, ...)</small>
-                                </div>
+                                </div> --}}
+
+                                
                             </div>
             
                         </div>
@@ -177,4 +195,12 @@
 
 <x-modal.confirmar-exclusao o="self" :n="$usuario->name" :id="$usuario->id" />
 
+@endsection
+
+@section('scripts')
+    <script>
+        $("#alterarSenha").click(function() {
+            $("#password").prop('disabled', (i, v) => !v);
+        })
+    </script>
 @endsection

@@ -1,6 +1,6 @@
 {{-- Habilita o formulário apenas para $type CREATE e EDIT --}}
 @if(!is_null($type))
-    <form action="{{ ($type == 'edit') ? route('permissoes.update', $permissao->id) : route('permissoes.store') }}" method="post">
+    <form action="{{ ($type == 'edit') ? route('admin.permissoes.update', $permissao->id) : route('admin.permissoes.store') }}" method="post">
     @csrf
 
     @if($type == 'edit') @method('PUT') @endif
@@ -59,13 +59,13 @@
                     @can('admin')
 
                         <div class="d-xs-block d-lg-none">
-                            <a href="{{ route('permissoes.edit', $permissao->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.permissoes.edit', $permissao->id) }}" class="btn btn-secondary">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </div>
 
                         <div class="d-none d-lg-block">
-                            <a href="{{ route('permissoes.edit', $permissao->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.permissoes.edit', $permissao->id) }}" class="btn btn-secondary">
                                 <i class="bi bi-pencil-square"></i>
                                 Editar permissão
                             </a>
@@ -266,23 +266,25 @@
     <div class="card-footer">
 
         <div class="row">
-            <div class="col-8 mt-2">
-                <a class="text-muted text-decoration-none" href="{{ route('permissoes.index') }}">
+            <div class="col-8 {{ (!is_null($type) ? "mt-2" : "mt-1") }}">
+                <a class="text-muted text-decoration-none" href="{{ route('admin.permissoes.index') }}">
                     <i class="bi bi-arrow-return-left"></i>
                     <span class="ms-2">Voltar sem alterar nada</span>
                 </a>
             </div>
 
             <div class="col-4 text-end">
-                <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="{{ ($type == 'edit') ? "Editar" : "Salvar" }} permissões">
-                    <span class="d-xs-block d-lg-none">
-                        <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
-                    </span>                    
-                    <span class="d-none d-lg-block">
-                        <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
-                        {{ ($type == 'edit') ? "Editar" : "Salvar" }} permissões
-                    </span>                   
-                </button>
+                @if(!is_null($type))
+                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="{{ ($type == 'edit') ? "Editar" : "Salvar" }} permissões">
+                        <span class="d-xs-block d-lg-none">
+                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
+                        </span>                    
+                        <span class="d-none d-lg-block">
+                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
+                            {{ ($type == 'edit') ? "Editar" : "Salvar" }} permissões
+                        </span>                   
+                    </button>
+                @endif
             </div>
         </div>
 

@@ -11,7 +11,7 @@
                             <h3 class="pt-1"><i class="bi bi-people-fill me-3"></i> Usuários</h3>
                         </div>
                         <div class="col-4 text-end">
-                            <a class="btn btn-primary" href="{{ route('usuarios.create') }}" data-toggle="tooltip" title="Criar novo usuário">
+                            <a class="btn btn-primary" href="{{ route('admin.usuarios.create') }}">
                                 <span class="d-lg-none">
                                     <i class="bi bi-plus-lg"></i>
                                 </span>
@@ -52,26 +52,18 @@
                                 </td>
                                 <td class="text-center">{{ date('d/m/Y', strtotime($u->created_at)) }}</td>
                                 <td class="text-center">
-                                    
-                                    @can('admin')
 
-                                        <a class="btn btn-sm btn-secondary" href="{{ route('usuarios.edit', $u->id) }}" data-toggle="tooltip" title="Editar {{ $u->name }}">
-                                            <i class="bi bi-pencil-fill"></i>
-                                        </a>
-
-                                        {{-- DELETE --}}
-                                        {{-- <a class="btn btn-sm btn-danger" href="{{ route('usuarios.show', $u->id) }}" data-toggle="tooltip" title="Ver detalhes de {{ $u->name }}">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a> --}}
-
-                                    @else
-
-                                        <a class="btn btn-sm btn-primary" href="{{ route('usuarios.show', $u->id) }}" data-toggle="tooltip" title="Ver detalhes de {{ $u->name }}">
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-sm btn-primary" href="{{ route('admin.usuarios.show', $u->id) }}" data-bs-toggle="tooltip" title="Detalhar {{ $u->name }}">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
-
-                                    @endcan
-
+                                        @can('admin')
+                                            <a class="btn btn-sm btn-secondary" href="{{ route('admin.usuarios.edit', $u->id) }}" data-bs-toggle="tooltip" title="Editar {{ $u->name }}">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>
+                                        @endcan
+                                    </div>
+                                    
                                 </td>
                             </tr>
                             @endforeach
@@ -81,7 +73,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-8 mt-1">
-                            <a class="text-muted pt-2 text-decoration-none" href="{{ route('admin') }}">
+                            <a class="text-muted pt-2 text-decoration-none" href="{{ route('admin.index') }}">
                                 <i class="bi bi-arrow-return-left"></i>
                                 <span class="ms-2">Voltar à página anterior</span>
                             </a>

@@ -11,7 +11,7 @@
                             <h3 class="pt-1"><i class="bi bi-toggles me-3"></i> Permissões</h3>
                         </div>
                         <div class="col-4 text-end">
-                            <a class="btn btn-primary" href="{{ route('permissoes.create') }}" data-toggle="tooltip" title="Criar uma permissão">
+                            <a class="btn btn-primary" href="{{ route('admin.permissoes.create') }}">
                                 <span class="d-lg-none">
                                     <i class="bi bi-plus-lg"></i>
                                 </span>
@@ -43,27 +43,19 @@
 
                                 <td class="text-center">
 
-                                    @can('admin')
-                                    
-                                        <a class="btn btn-sm btn-secondary" href="{{ route('permissoes.edit', $p->id) }}" data-toggle="tooltip" title="Editar {{ $p->name }}">
-                                            <i class="bi bi-pencil-fill"></i>
-                                        </a>
+                                    <div class="btn-group" role="group">
 
-                                        {{-- DELETE --}}
-                                        {{-- <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Excluir permissão {{ $p->name }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button> --}}
-                                    
-                                    @else
-                                    
-                                        <a class="btn btn-sm btn-primary" href="{{ route('permissoes.show', $p->id) }}" data-toggle="tooltip" title="Detalhes de {{ $p->name }}">
+                                        <a class="btn btn-sm btn-primary" href="{{ route('admin.permissoes.show', $p->id) }}" data-bs-toggle="tooltip" title="Detalhar {{ $p->name }}">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
-
-                                    @endcan
-
+    
+                                        @can('admin')
+                                            <a class="btn btn-sm btn-secondary" href="{{ route('admin.permissoes.edit', $p->id) }}" data-bs-toggle="tooltip" title="Editar {{ $p->name }}">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>
+                                        @endcan
+                                    </div>
                                 </td>
-
                             </tr>
                             @endforeach
                         </tbody>
@@ -72,7 +64,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-8 mt-1">
-                            <a class="text-muted pt-2 text-decoration-none" href="{{ route('admin') }}">
+                            <a class="text-muted pt-2 text-decoration-none" href="{{ route('admin.index') }}">
                                 <i class="bi bi-arrow-return-left"></i>
                                 <span class="ms-2">Voltar à página anterior</span>
                             </a>

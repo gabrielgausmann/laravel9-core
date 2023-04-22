@@ -1,57 +1,90 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row pb-2">
-        <h3 class="text-danger">Administração do sistema</h3>
-        <p class="lead d-none d-sm-block">
-            Utilize a barra lateral ou as opções abaixo para administrar a plataforma.
-        </p>
+
+<div class="row row-cols-1 pb-3">
+    <div class="col">
+        <div class="card">
+
+            <div class="card-header pb-1">
+                <div class="row">
+                    <div class="col-8">
+                        <h3 class="pt-1"><i class="bi bi-gear-fill me-3"></i> Configurações</h3>
+                    </div>
+                    <div class="col-4 text-end"></div>
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive pb-4">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-12"><h4><i class="bi bi-people-fill pe-3"></i>Usuários</h4></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col-12"><a href="{{ route('admin.usuarios.index') }}" class="nav-link d-block">Listar usuários</a></td>
+                            </tr>
+                            <tr>
+                                <td class="col-12"><a href="{{ route('admin.usuarios.create') }}" class="nav-link d-block">Criar novo usuário</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-responsive pb-4">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-12"><h4><i class="bi bi-person-badge pe-3"></i>Perfis e permissões</h4></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="col-12"><a href="{{ route('admin.perfis.index') }}" class="nav-link d-block">Listar perfis cadastrados</a></td>
+                            </tr>
+                            <tr>
+                                <td class="col-12"><a href="{{ route('admin.perfis.create') }}" class="nav-link d-block">Criar novo perfil de usuário</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                @can('dev')
+                    <div class="table-responsive pb-4">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="col-12"><h4 class="text-danger">
+                                        <i class="bi bi-shield-fill-exclamation pe-3"></i>Regras das permissões</h4>
+                                        <p>Apenas para desenvolvedores, manipula as regras permissões de acesso à plataforma.</p>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-12"><a href="{{ route('admin.permissoes.index') }}" class="nav-link d-block">Listar permissões</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-12"><a href="{{ route('admin.permissoes.create') }}" class="nav-link d-block">Criar nova permissão</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                @endcan
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-8 mt-1"></div>
+                    <div class="col-4 text-end"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="row row-cols-1 @can('dev') row-cols-md-3 @else row-cols-md-2  @endcan }} g-3 pb-3">
-        
-        {{-- Card usuários --}}
-        <div class="col">
-            <div class="card h-100">
-                <h4 class="card-header"><i class="bi bi-people-fill pe-3"></i>Usuários</h4>
-                <div class="card-body">
-                    <ul class="list-unstyled">
-                        <li class="py-1"><a href="{{ route('usuarios.index') }}">Listar usuários existentes</a></li>
-                        <li class="py-1"><a href="{{ route('usuarios.create') }}">Criar um novo usuário</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+</div>
 
-        {{-- Card perfis --}}
-        <div class="col">
-            <div class="card h-100">
-                <h4 class="card-header"><i class="bi bi-person-badge pe-3"></i>Perfis e permissões</h4>
-                <div class="card-body">
-                    <ul class="list-unstyled">
-                        <li class="py-1"><a href="{{ route('perfis.index') }}">Listar os perfis existentes</a></li>
-                        <li class="py-1"><a href="{{ route('perfis.create') }}">Criar um novo perfil</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        {{-- Card permissoes --}}
-        @can('dev')
-        <div class="col">
-            <div class="card h-100">
-                <h4 class="card-header bg-danger text-white"><i class="bi bi-toggles pe-3"></i>Regras de permissão</h4>
-                <div class="card-body">
-                    <ul class="list-unstyled">
-                        <li class="py-1"><a href="{{ route('permissoes.index') }}">Listar permissões existentes</a></li>
-                        <li class="py-1"><a href="{{ route('permissoes.create') }}">Criar uma nova permissão</a></li>
-                    </ul>
-
-                    <p class="text-secondary">Apenas para desenvolvedores, manipula as regras permissões de acesso à plataforma.</p>
-                
-                </div>
-            </div>
-        </div>
-        @endcan
-    </div>
 @endsection
