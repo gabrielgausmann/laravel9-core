@@ -33,9 +33,12 @@
             @auth <x-navegacao /> @endauth
         </div>
 
+        {{-- @hasSection()
+        @endif --}}
+
         {{-- Navegação administrativa, caso tenha permissão de administrador e esteja na rota correta --}}
         @can('admin')
-            @if(request()->is(['admin*']))
+            @if(request()->RouteIs(['admin.*']))
                 <div class="position-fixed vh-100 overflow-auto" style="z-index: 100">
                     <x-navegacao_admin />
                 </div>
@@ -43,8 +46,8 @@
         @endcan
         
         {{-- Conteúdo principal --}}
-        <div class="container-fluid pt-5" style="z-index: 99">
-            <div id="app" class="offset-md-1 col-md-11">
+        <div id="app" class="container-fluid pt-5" style="z-index: 99">
+            <div class="offset-md-1 col-md-11">
                 @yield('content')
             </div>
         </div>

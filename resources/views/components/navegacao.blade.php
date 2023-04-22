@@ -50,15 +50,18 @@
                             <i class="bi-person-circle fs-5 ms-2"></i>
                         </a>
                         
-                        <div class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-end shadow p-0" aria-labelledby="navbarDropdown">
                                 
                             <!-- Alterar as próprias informações -->
-                            <a class="dropdown-item" href="{{ route('self.index') }}">Minhas informações</a>
+                            <a class="dropdown-item px-3 py-1" href="{{ route('self.index') }}">
+                                <i class="bi bi-person-check-fill fs-5 me-2"></i>
+                                Minhas informações e senha
+                            </a>
                             
-                            <hr class="dropdown-divider">
+                            <hr class="dropdown-divider p-0 m-0">
 
                             <!-- Fazer logout -->
-                            <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item px-3 py-1 text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-power fs-5 me-2"></i>
                                 {{ __('Logout') }}
                             </a>

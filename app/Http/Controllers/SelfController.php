@@ -33,16 +33,24 @@ class SelfController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'password' => 'required',
-        ]);
+
+        // dd($request->all());
+        if(isset($request["alterarSenha"])) {
+            $this->validate($request, [
+                'name' => 'required',
+                'password' => 'required',
+            ]);
+
+            $request['password'] = Hash::make($request['password']);
+        } else {
+            $this->validate($request, [
+                'name' => 'required',
+            ]);
+        }
 
         $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
 
         $usuario = User::find($id);
-
         $usuario->update($input);
 
         return redirect()->route('home')->with([
