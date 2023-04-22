@@ -55,7 +55,7 @@
                             <!-- Alterar as próprias informações -->
                             <a class="dropdown-item px-3 py-1" href="{{ route('self.index') }}">
                                 <i class="bi bi-person-check-fill fs-5 me-2"></i>
-                                Minhas informações e senha
+                                Minhas informações
                             </a>
                             
                             <hr class="dropdown-divider p-0 m-0">
