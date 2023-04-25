@@ -33,9 +33,6 @@
             @auth <x-navegacao /> @endauth
         </div>
 
-        {{-- @hasSection()
-        @endif --}}
-
         {{-- Navegação administrativa, caso tenha permissão de administrador e esteja na rota correta --}}
         @can('admin')
             @if(request()->RouteIs(['admin.*']))
@@ -137,5 +134,5 @@
         // });
     </script>
 
-    @yield('scripts');
+    @yield('scripts')
 </html>
