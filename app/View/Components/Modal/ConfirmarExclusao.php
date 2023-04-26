@@ -10,17 +10,19 @@ class ConfirmarExclusao extends Component
     public $o;
     public $n;
     public $id;
+    public $modalId;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($o, $n, $id)
+    public function __construct($o, $n, $id, $modalId)
     {
         $this->o = $o;
         $this->n = $n;
         $this->id = $id;
+        $this->modalId = $modalId;
     }
 
     /**
