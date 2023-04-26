@@ -30,14 +30,14 @@
 
         {{-- Navegação geral, caso tenha realizado Login --}}
         <div class="pb-5" style="z-index: 101">
-            @auth <x-navegacao /> @endauth
+            @auth <x-nav.main /> @endauth
         </div>
 
         {{-- Navegação administrativa, caso tenha permissão de administrador e esteja na rota correta --}}
         @can('admin')
             @if(request()->RouteIs(['admin.*']))
                 <div class="position-fixed vh-100 overflow-auto" style="z-index: 100">
-                    <x-navegacao_admin />
+                    <x-nav.admin />
                 </div>
             @endif
         @endcan
