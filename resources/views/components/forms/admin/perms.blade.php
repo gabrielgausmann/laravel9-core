@@ -1,9 +1,9 @@
-{{-- Habilita o formulário apenas para $type CREATE e EDIT --}}
-@if(!is_null($type))
-    <form action="{{ ($type == 'edit') ? route('admin.permissoes.update', $permissao->id) : route('admin.permissoes.store') }}" method="post">
+{{-- Habilita o formulário apenas para $metodo CREATE e EDIT --}}
+@if(!is_null($metodo))
+    <form action="{{ ($metodo == 'edit') ? route('admin.permissoes.update', $permissao->id) : route('admin.permissoes.store') }}" method="post">
     @csrf
 
-    @if($type == 'edit') @method('PUT') @endif
+    @if($metodo == 'edit') @method('PUT') @endif
 
 @endif
 
@@ -15,8 +15,8 @@
                     <i class="bi bi-toggles me-3"></i> 
                     <span class="text-secondary">Permissão |</span>
 
-                    @if(!is_null($type))
-                        @if($type == 'edit') 
+                    @if(!is_null($metodo))
+                        @if($metodo == 'edit') 
                             Editar {{ $permissao->name }} 
                         @else 
                             Criar 
@@ -31,13 +31,13 @@
             <div class="col-4 text-end">
 
                 {{-- EDIT --}}
-                @if(!is_null($type))
+                @if(!is_null($metodo))
 
                     {{-- 
                         EDIT | Habilita exclusão caso tenha essa permissão.
                         Não permite excluir as permissões 'admin' e 'dev'
                     --}}
-                    @if(($type == 'edit') && $permissao->id > 2)
+                    @if(($metodo == 'edit') && $permissao->id > 2)
                         @can('admin')
                             <a class="btn btn-danger" type="button" data-toggle="tooltip" title="Apagar {{ $permissao->name }}" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
                                 <span class="d-xs-block d-lg-none">
@@ -90,11 +90,11 @@
                 <p class="text-secondary d-none d-md-block">
                     <span class="badge bg-danger me-1">Atenção</span>
                     Permissões são utilizadas como parte do pacote
-                    Spatie/Laravel-permission utilizando-se <kbd>&commat;can(@if(is_null($type) || $type=='edit'){{ $permissao->name }}@endif)</kbd> ou 
-                    <kbd>$middleware["can:@if(is_null($type) || $type=='edit'){{ $permissao->name }}@endif"]</kbd> diretamente no código da aplicação
+                    Spatie/Laravel-permission utilizando-se <kbd>&commat;can(@if(is_null($metodo) || $metodo=='edit'){{ $permissao->name }}@endif)</kbd> ou 
+                    <kbd>$middleware["can:@if(is_null($metodo) || $metodo=='edit'){{ $permissao->name }}@endif"]</kbd> diretamente no código da aplicação
                 </p>
 
-                @if(!is_null($type))
+                @if(!is_null($metodo))
                     <p class="text-secondary">
                         <span class="badge bg-danger me-1">Atenção</span>
                         Utilize essa interface apenas se você sabe o que está fazendo!
@@ -109,16 +109,16 @@
                 <div class="row pb-4">
                     <div class="col">
 
-                        <label for="nomeDoPerfil" class="d-block fw-bold @if($type == 'edit') text-danger @endif">
+                        <label for="nomeDoPerfil" class="d-block fw-bold @if($metodo == 'edit') text-danger @endif">
                             Nome da permissão
                         </label>
 
                         {{-- EDIT / CREATE || Campo de formulário Nome --}}
-                        @if(!is_null($type))
+                        @if(!is_null($metodo))
 
-                            <input type="text" name="name" class="form-control" id="nomeDoPerfil" aria-describedby="dicaPermissao" @if($type == 'edit') value="{{ $permissao->name }}" @if($permissao->id <= 2) disabled="disabled" @endif @endif />
+                            <input type="text" name="name" class="form-control" id="nomeDoPerfil" aria-describedby="dicaPermissao" @if($metodo == 'edit') value="{{ $permissao->name }}" @if($permissao->id <= 2) disabled="disabled" @endif @endif />
                             
-                            @if($type == 'create')
+                            @if($metodo == 'create')
                             <small id="dicaPermissao" class="form-text text-muted">
                                 <strong>Obrigatório</strong>. Utilizar notação kebab-case.
                             </small>
@@ -145,9 +145,9 @@
                         </label>
 
                         {{-- EDIT / CREATE || Campo de formulário Descrição --}}
-                        @if(!is_null($type))
+                        @if(!is_null($metodo))
 
-                            <textarea rows="2" name="description" class="form-control" id="descricaoDaPermissao" aria-describedby="dicaDescricaoPermissao">@if($type == 'edit'){{ $permissao->description }}@endif</textarea>
+                            <textarea rows="2" name="description" class="form-control" id="descricaoDaPermissao" aria-describedby="dicaDescricaoPermissao">@if($metodo == 'edit'){{ $permissao->description }}@endif</textarea>
                             
                             <small id="dicaDescricaoPermissao" class="form-text text-muted"> 
                                 <strong>Opcional</strong>. Você pode incluir uma breve descrição sobre o que essa permissão faz.
@@ -173,7 +173,7 @@
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                 <h5>Perfis</h5>
                 <p class="text-secondary">
-                    @if(!is_null($type))
+                    @if(!is_null($metodo))
                         <span class="badge bg-danger me-1">Atenção</span>
                         Perfis para os quais você quer atribuir essa permissão
                     @else
@@ -194,7 +194,7 @@
                         </thead>
                         <tbody>
     
-                            @if(!is_null($type))
+                            @if(!is_null($metodo))
     
                                 @foreach($perfis as $p)
                                 <tr>
@@ -203,7 +203,7 @@
                                             @can('admin')
                                             
                                                 <input class="form-check-input" type="checkbox" role="switch" name="perfis[]" value="{{ $p->id }}" id="{{ $p->id }}" 
-                                                    @if($type == 'edit') 
+                                                    @if($metodo == 'edit') 
                                                         {{ ($permissao->hasAllRoles($p) ? 'checked="checked"' : "") }} 
                                                         @if(($permissao->id == 1) && ($p->id ==1)) disabled="disabled" @endif
                                                     @else 
@@ -266,7 +266,7 @@
     <div class="card-footer">
 
         <div class="row">
-            <div class="col-8 {{ (!is_null($type) ? "mt-2" : "mt-1") }}">
+            <div class="col-8 {{ (!is_null($metodo) ? "mt-2" : "mt-1") }}">
                 <a class="text-muted text-decoration-none" href="{{ route('admin.permissoes.index') }}">
                     <i class="bi bi-arrow-return-left"></i>
                     <span class="ms-2">Voltar sem alterar nada</span>
@@ -274,14 +274,14 @@
             </div>
 
             <div class="col-4 text-end">
-                @if(!is_null($type))
-                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="{{ ($type == 'edit') ? "Editar" : "Salvar" }} permissões">
+                @if(!is_null($metodo))
+                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="{{ ($metodo == 'edit') ? "Editar" : "Salvar" }} permissões">
                         <span class="d-xs-block d-lg-none">
-                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
+                            <i class="bi {{ ($metodo == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
                         </span>                    
                         <span class="d-none d-lg-block">
-                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
-                            {{ ($type == 'edit') ? "Editar" : "Salvar" }} permissões
+                            <i class="bi {{ ($metodo == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
+                            {{ ($metodo == 'edit') ? "Editar" : "Salvar" }} permissões
                         </span>                   
                     </button>
                 @endif
@@ -290,6 +290,6 @@
 
     </div>
 
-@if(!is_null($type))
+@if(!is_null($metodo))
     </form>
 @endif

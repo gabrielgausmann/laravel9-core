@@ -6,13 +6,20 @@ use Illuminate\View\Component;
 
 class Perfil extends Component
 {
-
     /**
      * @var metodo
+     * Qual método iremos utilizar? Create, Edit ou View?
      * 
+     * @var perfil
+     * Qual perfil iremos carregar? (Opcional)
      * 
+     * @var perms
+     * Permissões do perfil, se houver perfil carregado
+     * 
+     * @var usuarios
+     * Usuários do perfil, se houver perfil carregado
      */
-    public $metodo;     // Antiga TYPE
+    public $metodo;
     public $perfil;
     public $perms;
     public $usuarios;
