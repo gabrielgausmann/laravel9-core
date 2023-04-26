@@ -1,9 +1,9 @@
-{{-- Habilita o formulário apenas para $type CREATE e EDIT --}}
-@if(!is_null($type))
-    <form action="{{ ($type == 'edit') ? route('admin.perfis.update', $perfil->id) : route('admin.perfis.store') }}" method="post">
+{{-- Habilita o formulário apenas para $metodo CREATE e EDIT --}}
+@if(!is_null($metodo))
+    <form action="{{ ($metodo == 'edit') ? route('admin.perfis.update', $perfil->id) : route('admin.perfis.store') }}" method="post">
     @csrf
 
-    @if($type == 'edit') @method('PUT') @endif
+    @if($metodo == 'edit') @method('PUT') @endif
 
 @endif
 
@@ -15,8 +15,8 @@
                     <i class="bi bi-person-badge me-3"></i> 
                     <span class="text-secondary">Perfil |</span>
 
-                    @if(!is_null($type))
-                        @if($type == 'edit') 
+                    @if(!is_null($metodo))
+                        @if($metodo == 'edit') 
                             Editar {{ $perfil->name }} 
                         @else 
                             Criar 
@@ -31,13 +31,13 @@
             <div class="col-4 text-end">
 
                 {{-- EDIT --}}
-                @if(!is_null($type))
+                @if(!is_null($metodo))
 
                     {{-- 
                         EDIT | Habilita exclusão caso tenha essa permissão.
                         Não permite excluir os perfis 'Administrador' e 'Desenvolvedor(a)'
                     --}}
-                    @if(($type == 'edit') && $perfil->id > 2)
+                    @if(($metodo == 'edit') && $perfil->id > 2)
                         @can('admin')
                             <a class="btn btn-danger" type="button" data-toggle="tooltip" title="Apagar {{ $perfil->name }}" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
                                 <span class="d-xs-block d-lg-none">
@@ -102,9 +102,9 @@
                         </label>
 
                         {{-- EDIT / CREATE || Campo de formulário Nome --}}
-                        @if(!is_null($type))
+                        @if(!is_null($metodo))
 
-                            <input type="text" name="name" class="form-control" id="nomeDoPerfil" aria-describedby="dicaPerfil" @if($type == 'edit') value="{{ $perfil->name }}" @endif />
+                            <input type="text" name="name" class="form-control" id="nomeDoPerfil" aria-describedby="dicaPerfil" @if($metodo == 'edit') value="{{ $perfil->name }}" @endif />
                             
                             <small id="dicaPerfil" class="form-text text-muted"> 
                                 <strong>Obrigatório</strong>. Você pode utilizar o cargo como base para o perfil de usuários, por exemplo.
@@ -128,9 +128,9 @@
                         
                         
                         {{-- EDIT / CREATE || Campo de formulário Descrição --}}
-                        @if(!is_null($type))
+                        @if(!is_null($metodo))
 
-                            <textarea rows="2" name="description" class="form-control" id="descricaoDoPerfil" aria-describedby="dicaDescricaoPerfil">@if($type == 'edit'){{$perfil->description}}@endif</textarea>
+                            <textarea rows="2" name="description" class="form-control" id="descricaoDoPerfil" aria-describedby="dicaDescricaoPerfil">@if($metodo == 'edit'){{$perfil->description}}@endif</textarea>
                             
                             <small id="dicaDescricaoPerfil" class="form-text text-muted"> 
                                 <strong>Opcional</strong>. Você pode incluir uma descrição sobre esse perfil.
@@ -180,7 +180,7 @@
                         </thead>
                         <tbody>
     
-                            @if(!is_null($type))
+                            @if(!is_null($metodo))
     
                                 @foreach($perms as $p)
                                     <tr>
@@ -189,7 +189,7 @@
                                                 @can('admin')
 
                                                     <input class="form-check-input" type="checkbox" role="switch" name="perms[]" value="{{ $p->id }}" id="{{ $p->id }}" 
-                                                        @if($type == 'edit') 
+                                                        @if($metodo == 'edit') 
                                                             {{ ($perfil->hasAllPermissions($p) ? 'checked="checked"' : "") }} 
                                                             @if(($perfil->id == 1) && ($p->id == 1)) disabled="disabled" @endif
                                                         @endif
@@ -292,7 +292,7 @@
     <div class="card-footer">
 
         <div class="row">
-            <div class="col-8 {{ (!is_null($type) ? "mt-2" : "mt-1") }}">
+            <div class="col-8 {{ (!is_null($metodo) ? "mt-2" : "mt-1") }}">
                 <a class="text-muted text-decoration-none" href="{{ route('admin.perfis.index') }}">
                     <i class="bi bi-arrow-return-left"></i>
                     <span class="ms-2">Voltar sem alterar nada</span>
@@ -300,14 +300,14 @@
             </div>
 
             <div class="col-4 text-end">
-                @if(isset($type))
-                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="{{ ($type == 'edit') ? "Editar" : "Salvar" }} perfil">
+                @if(isset($metodo))
+                    <button type="submit" class="btn btn-primary" data-toggle="tooltip" title="{{ ($metodo == 'edit') ? "Editar" : "Salvar" }} perfil">
                         <span class="d-xs-block d-lg-none">
-                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
+                            <i class="bi {{ ($metodo == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
                         </span>                    
                         <span class="d-none d-lg-block">
-                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
-                            {{ ($type == 'edit') ? "Editar" : "Salvar" }} perfil
+                            <i class="bi {{ ($metodo == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
+                            {{ ($metodo == 'edit') ? "Editar" : "Salvar" }} perfil
                         </span>                   
                     </button>
                 @endif
@@ -316,6 +316,6 @@
 
     </div>
 
-@if(!is_null($type))
+@if(!is_null($metodo))
     </form>
 @endif

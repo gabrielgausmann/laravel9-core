@@ -1,10 +1,10 @@
-{{-- Habilita o formulário apenas para $type CREATE e EDIT --}}
+{{-- Habilita o formulário apenas para $metodo CREATE e EDIT --}}
 
-@if(isset($type))
-    <form action="{{ ($type == 'edit') ? route('admin.usuarios.update', $usuario->id) : route('admin.usuarios.store') }}" method="post">
+@if(isset($metodo))
+    <form action="{{ ($metodo == 'edit') ? route('admin.usuarios.update', $usuario->id) : route('admin.usuarios.store') }}" method="post">
     @csrf
 
-    @if($type == 'edit') @method('PUT') @endif
+    @if($metodo == 'edit') @method('PUT') @endif
 
 @endif
 
@@ -15,8 +15,8 @@
                     <i class="bi bi-person-fill me-3"></i> 
                     <span class="text-secondary">Usuário |</span>
 
-                    @if(isset($type))
-                        @if($type == 'edit') 
+                    @if(isset($metodo))
+                        @if($metodo == 'edit') 
                             Editar {{ $usuario->name }} 
                         @else 
                             Criar 
@@ -30,13 +30,13 @@
 
             <div class="col-4 text-end">
                 
-                @if(isset($type))
+                @if(isset($metodo))
                 
                     {{-- 
                         EDIT | Habilita exclusão caso tenha essa permissão.
                         Não permite excluir as permissões 'admin' e 'dev'
                     --}}
-                    @if(($type == "edit") && ($usuario->id > 1))
+                    @if(($metodo == "edit") && ($usuario->id > 1))
                         @can('admin')
 
                             <a class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
@@ -103,9 +103,9 @@
                         </label>
 
                         {{-- EDIT / CREATE || Campo de formulário Nome --}}
-                        @if(isset($type))
+                        @if(isset($metodo))
 
-                            <input type="text" name="name" class="form-control" id="nome" aria-describedby="dicaNome" @if($type == 'edit') value="{{ $usuario->name }}" @endif />
+                            <input type="text" name="name" class="form-control" id="nome" aria-describedby="dicaNome" @if($metodo == 'edit') value="{{ $usuario->name }}" @endif />
                             <small id="dicaNome" class="form-text text-muted"><strong>Obrigatório</strong>. Utilize o nome completo, sem abreviaturas</small>
 
                         {{-- SHOW || Exibe Nome --}}
@@ -124,8 +124,8 @@
                         </label>
 
                         {{-- EDIT / CREATE || Campo de formulário E-mail --}}
-                        @if(isset($type))
-                            <input type="email" name="email" class="form-control" id="email" aria-describedby="dicaEmail" @if($type == 'edit') value="{{ $usuario->email }}" @endif />
+                        @if(isset($metodo))
+                            <input type="email" name="email" class="form-control" id="email" aria-describedby="dicaEmail" @if($metodo == 'edit') value="{{ $usuario->email }}" @endif />
                             <small id="dicaEmail" class="form-text text-muted"><strong>Obrigatório</strong>. O e-mail será utilizado para realizar login e para recuperação da senha</small>
 
                         {{-- SHOW || Exibe o E-mail --}}
@@ -140,8 +140,8 @@
                             Senha
                         </label>
 
-                        @if((isset($type)))
-                            @if($type == 'create') 
+                        @if((isset($metodo)))
+                            @if($metodo == 'create') 
                                 <input type="password" name="password" class="form-control" id="password" aria-describedby="dicaPassword" />
                                 <small id="dicaPassword" class="form-text text-muted"><strong>Obrigatório</strong>. Utilize uma senha forte - use letras maiúsculas, minúsculas e caracteres especiais (#, @, $, ...)</small>
                             
@@ -193,14 +193,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if(isset($type))
+                            @if(isset($metodo))
 
                                 @foreach($perfis as $p)
                                 <tr>
                                     <td>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch" name="perfis[]" value="{{ $p->id }}" id="{{ $p->id }}" 
-                                                @if($type == 'edit') {{ ($usuario->hasRole($p) ? 'checked="checked"' : "") }} 
+                                                @if($metodo == 'edit') {{ ($usuario->hasRole($p) ? 'checked="checked"' : "") }} 
                                                     @if(($usuario->id == 1) && ($p->id == 1)) disabled="disabled" @endif
                                                 @endif
                                             >
@@ -252,23 +252,23 @@
 
         <div class="row">
 
-            <div class="col-8 {{ (!is_null($type) ? "mt-2" : "mt-1") }}">
+            <div class="col-8 {{ (!is_null($metodo) ? "mt-2" : "mt-1") }}">
                 <a class="text-muted text-decoration-none" href="{{ route('admin.usuarios.index') }}">
                     <i class="bi bi-arrow-return-left"></i>
-                    <span class="ms-2">Voltar @if(isset($type)) sem {{ ($type == 'create' ? 'criar usuário' : 'editar informações')  }} @else à página anterior @endif</span>
+                    <span class="ms-2">Voltar @if(isset($metodo)) sem {{ ($metodo == 'create' ? 'criar usuário' : 'editar informações')  }} @else à página anterior @endif</span>
                 </a>
             </div>
 
             <div class="col-4 text-end">
 
-                @if(isset($type))
+                @if(isset($metodo))
                     <button type="submit" class="btn btn-primary">
                         <span class="d-xs-block d-lg-none">
-                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
+                            <i class="bi {{ ($metodo == 'edit') ? "bi-pencil-square" : "bi-save" }}"></i>
                         </span>                    
                         <span class="d-none d-lg-block">
-                            <i class="bi {{ ($type == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
-                            {{ ($type == 'edit') ? "Editar" : "Salvar" }} usuário
+                            <i class="bi {{ ($metodo == 'edit') ? "bi-pencil-square" : "bi-save" }} me-1"></i>
+                            {{ ($metodo == 'edit') ? "Editar" : "Salvar" }} usuário
                         </span>                   
                     </button>
                 @endif
@@ -279,10 +279,10 @@
 
 
 
-@if(isset($type))
+@if(isset($metodo))
     </form>
 
-    @if($type == "edit")
-        <x-modal.confirmar-exclusao o="usuarios" :n="$usuario->name" :id="$usuario->id" modalId="confirmarExclusao"/>
+    @if($metodo == "edit")
+        <x-modal.confirmar-exclusao o="admin.usuarios" :n="$usuario->name" :id="$usuario->id" modalId="confirmarExclusao"/>
     @endif
 @endif

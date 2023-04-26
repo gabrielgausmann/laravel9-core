@@ -4,7 +4,7 @@
 <div class="row row-cols-1 pb-3">
     <div class="col">
         <div class="card">
-            <x-admin.forms.usuario type="create" :perfis="$perfis" />
+            <x-forms.admin.usuario metodo="create" :perfis="$perfis" />
         </div>
     </div>
 </div>

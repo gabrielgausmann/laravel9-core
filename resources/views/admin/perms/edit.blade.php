@@ -4,7 +4,7 @@
 <div class="row row-cols-1 pb-3">
     <div class="col">
         <div class="card">
-            <x-admin.forms.perms type="edit" :permissao="$permissao" :perfis="$perfis" />
+            <x-forms.admin.perms metodo="edit" :permissao="$permissao" :perfis="$perfis" />
         </div>
     </div>
 </div>
