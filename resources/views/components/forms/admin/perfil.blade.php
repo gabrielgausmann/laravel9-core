@@ -39,6 +39,7 @@
                     --}}
                     @if(($metodo == 'edit') && $perfil->id > 2)
                         @can('admin')
+
                             <a class="btn btn-danger" type="button" data-toggle="tooltip" title="Apagar {{ $perfil->name }}" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
                                 <span class="d-xs-block d-lg-none">
                                     <i class="bi bi-trash-fill"></i>
@@ -48,8 +49,6 @@
                                     Excluir perfil
                                 </span>
                             </a>
-
-                            <x-modal.confirmar-exclusao o="perfis" :n="$perfil->name" :id="$perfil->id" />
 
                         @endcan
                     @endif
@@ -318,4 +317,8 @@
 
 @if(!is_null($metodo))
     </form>
+
+    @if($metodo == "edit")
+        <x-modal.confirmar-exclusao modalId="confirmarExclusao" o="admin.perfis" :n="$perfil->name" :id="$perfil->id" />
+    @endif
 @endif

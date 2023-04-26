@@ -39,6 +39,7 @@
                     --}}
                     @if(($metodo == 'edit') && $permissao->id > 2)
                         @can('admin')
+
                             <a class="btn btn-danger" type="button" data-toggle="tooltip" title="Apagar {{ $permissao->name }}" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
                                 <span class="d-xs-block d-lg-none">
                                     <i class="bi bi-trash-fill"></i>
@@ -47,9 +48,7 @@
                                     <i class="bi bi-trash-fill me-1"></i>
                                     Excluir permissão
                                 </span>
-                            </a>
-
-                            <x-modal.confirmar-exclusao o="permissoes" :n="$permissao->name" :id="$permissao->id" />
+                            </a>                         
 
                         @endcan
                     @endif
@@ -292,4 +291,8 @@
 
 @if(!is_null($metodo))
     </form>
+
+    @if($metodo == "edit")
+        <x-modal.confirmar-exclusao modalId="confirmarExclusao" o="admin.permissoes" :n="$permissao->name" :id="$permissao->id" />
+    @endif
 @endif
