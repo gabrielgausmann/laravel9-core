@@ -28,24 +28,17 @@
 
     <body>
 
-        {{-- Navegação geral, caso tenha realizado Login --}}
-        <div class="pb-5" style="z-index: 101">
-            @auth <x-nav.main /> @endauth
-        </div>
+        <div class="container-fluid vh-100">
+            <div class="row bg-light">
+                @auth <x-nav.main /> @endauth
+            </div>
 
-        {{-- Navegação administrativa, caso tenha permissão de administrador e esteja na rota correta --}}
-        @can('admin')
-            @if(request()->RouteIs(['admin.*']))
-                <div class="position-fixed vh-100 overflow-auto" style="z-index: 100">
-                    <x-nav.admin />
+            <div class="row">
+                <div class="col-lg-12 pt-5">
+                    <div class="pt-4">
+                        @yield('content')
+                    </div>
                 </div>
-            @endif
-        @endcan
-        
-        {{-- Conteúdo principal --}}
-        <div id="app" class="container-fluid pt-5" style="z-index: 99">
-            <div class="offset-md-1 col-md-11">
-                @yield('content')
             </div>
         </div>
 

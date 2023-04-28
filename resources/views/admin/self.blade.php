@@ -193,7 +193,7 @@
     </div>
 </div>
 
-<x-modal.confirmar-exclusao o="self" :n="$usuario->name" :id="$usuario->id" />
+<x-modal.excluir objeto="self" :descricao="$usuario->name" :instancia="$usuario->id" modalId="confirmarExclusao" />
 
 @endsection
 
