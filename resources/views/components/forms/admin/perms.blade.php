@@ -293,6 +293,6 @@
     </form>
 
     @if($metodo == "edit")
-        <x-modal.confirmar-exclusao modalId="confirmarExclusao" o="admin.permissoes" :n="$permissao->name" :id="$permissao->id" />
+        <x-modal.excluir objeto="admin.permissoes" :descricao="$permissao->name" :instancia="$permissao->id" modalId="confirmarExclusao" />
     @endif
 @endif

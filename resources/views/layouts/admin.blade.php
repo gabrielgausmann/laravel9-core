@@ -28,19 +28,30 @@
 
     <body>
 
+
         <div class="container-fluid vh-100">
             <div class="row bg-light">
                 @auth <x-nav.main /> @endauth
             </div>
 
             <div class="row">
-                <div class="col-lg-12 pt-5">
+                @can('admin')
+                    @if(request()->is(['admin*']))
+                        <div class="d-none d-lg-block col-lg-2 overflow-auto ps-0">
+                            <x-nav.admin />
+                        </div>
+                    @endif
+                @endcan
+
+                <div class="{{ (request()->is(['admin*']) ? "col-lg-10" : "col-lg-12") }} pt-5">
                     <div class="pt-4">
                         @yield('content')
                     </div>
                 </div>
+
             </div>
         </div>
+
 
         {{-- Área de exibição das Toasts --}}
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
