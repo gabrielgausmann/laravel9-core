@@ -24,6 +24,8 @@
         {{-- JQuery --}}
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         
+        
+        
     </head>
 
     <body>
@@ -77,6 +79,8 @@
     {{-- <script src="{{ asset('jquery.mask.plugin/jquery.mask.min.js') }}"></script> --}}
     {{-- <script src="{{ asset('jquery.mask.plugin/jquery.mask.custom.js') }}"></script> --}}
     
+    {{-- eCharts --}}
+    {{-- <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script> --}}
     
     {{-- 
         FIXME: Mover para o custom.js (quando funcionar)
@@ -96,7 +100,7 @@
         });
 
         // // DATA TABLES
-        // $(document).ready( function () {
+        // $(document).ready(function () {
         //     $('.datatable').DataTable({
         //         order: [[ 2, 'desc' ], [ 0, 'asc' ]],
         //         "pageLength": 25,
