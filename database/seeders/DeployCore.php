@@ -25,8 +25,8 @@ class DeployCore extends Seeder
         // Criar o usuário raiz
         $root = User::create([
             'name'          => 'root',
-            'email'         => 'root@core',
-            'password'      => Hash::make('password'),
+            'email'         => 'root@app',
+            'password'      => Hash::make('@'),
         ]);
 
         // Cria uma regra para administração do sistema
@@ -48,6 +48,27 @@ class DeployCore extends Seeder
 
         // Associa o perfil ao usuário
         $root->assignRole([$admin]);
+
+         // Cria permissão de DEV
+         Permission::create([
+            'name'          => 'dev',
+            'description'   => 'Permissão de desenvolvedor (@can)',
+        ]);
+
+
+        // Cria o perfil de administrador do sistema
+        $dev = Role::create([
+            'name'          => 'Desenvolvedor',
+            'description'   => 'Perfil responsável pelo desenvolvimento da plataforma e permissões de uso',
+        ]);
+
+        // Associa as permissões ao perfil
+        $dev->syncPermissions([
+            'dev',
+        ]);
+
+        // Associa o perfil ao usuário root
+        $root->assignRole([$dev]);
 
     }
 }
