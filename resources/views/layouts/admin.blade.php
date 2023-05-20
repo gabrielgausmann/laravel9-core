@@ -89,22 +89,7 @@
     {{-- <script src="{{ asset('jquery.mask.plugin/jquery.mask.custom.js') }}"></script> --}}
     
     
-    {{-- 
-        FIXME: Mover para o custom.js (quando funcionar)
-    --}}
     <script>
-        // TOASTER
-        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-        var toastList = toastElList.map(function(toastEl) {
-            return new bootstrap.Toast(toastEl)
-        })
-        toastList.forEach(toast => toast.show());
-
-        // TOOLTIPS
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
 
         // // DATA TABLES
         // $(document).ready( function () {
@@ -139,4 +124,6 @@
     </script>
 
     @yield('scripts')
+
+    <script src="{{ asset('js/common.js') }}"></script>
 </html>
