@@ -62,31 +62,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::group(['middleware' => ['can:dev']], function() {
             Route::resource('permissoes', 'App\Http\Controllers\PermsController');
         });
-
     });
 
-    // Route::prefix('admin')->group(function() {
-    
-    //     // As rotas dentro desse grupo precisam ter passado por autenticação 
-    //     // e ter regra (role) de administração (can: admin)
-    //     Route::group(['middleware' => ['can:admin']], function() {
-        
-    //         // Página inicial de administração. Conteúdo depende do nível de permissão
-    //         Route::get('/', [App\Http\Controllers\AdminController::class, 'index']);
-    
-    //         // Administração de usuários
-    //         Route::resource('usuarios', 'App\Http\Controllers\UserController');
-    
-    //         // Administração de perfis (roles)
-    //         Route::resource('perfis', 'App\Http\Controllers\RoleController');
-    //     });
-    
-    
-    //     // As rotas dentro desse grupo precisam ter passado por autenticação 
-    //     // e ter permissão de desenvolvedor (can: dev)
-    //     
-    
-    // });
-});    
+});
 
 
