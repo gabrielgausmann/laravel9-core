@@ -48,11 +48,11 @@
                                 <td class="text-center">{{ date('d/m/Y', strtotime($p->created_at)) }}</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
-                                        <a class="btn btn-sm btn-primary" href="{{ route('admin.perfis.show', $p->id) }}" data-bs-toggle="tooltip" title="Detalhar {{ $p->name }}">
+                                        <a class="btn btn-sm btn-primary" href="{{ route('admin.perfis.show', $p->id) }}" data-bs-toggle="tooltip" title="Detalhar">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
                                         @can('admin')
-                                            <a class="btn btn-sm btn-secondary" href="{{ route('admin.perfis.edit', $p->id) }}" data-bs-toggle="tooltip" title="Editar {{ $p->name }}">
+                                            <a class="btn btn-sm btn-secondary" href="{{ route('admin.perfis.edit', $p->id) }}" data-bs-toggle="tooltip" title="Editar">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
                                         @endcan
