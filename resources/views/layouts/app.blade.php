@@ -8,7 +8,7 @@
         {{-- Token CSRF --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title> @if(request()->is(['admin*'])) ADM | @endif {{ config('app.name') }} </title>
+        <title>config('app.name')</title>
 
         {{-- Fontes --}}
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
